@@ -32,7 +32,7 @@ Os endpoints criados são os seguintes:
 
 #### Testes
 
-Todas as camadas da aplicação foram testadas (domain, repository, controller, service e util) com JUnit5 e mockadas com Mockito, quando necessário. Nota-se que nem todos os testes precisavam ser realizados, já em que alguns foi testado apenas a IDE ou o próprio  framework (especialmente nos testes de repository). Entretanto, foram escritos mesmo assim para praticar a habilidade de testes.
+Todas as camadas da aplicação foram testadas (domain, repository, controller, service e util) com JUnit5 e mockadas com Mockito, quando necessário. Nota-se que nem todos os testes precisavam ser realizados, já em que alguns foi testado o próprio  framework (especialmente nos testes de repository). Entretanto, foram escritos mesmo assim para praticar a habilidade de testes.
 
 Os 31 testes realizados se dividem em: domain (2), repository (8), controller (8), service (9), util (4).
 
