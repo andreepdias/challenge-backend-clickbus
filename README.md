@@ -16,6 +16,20 @@ Para executar basta expor a porta 8080:
 
 `docker run -p 8080:8080 andreepdias/challenge-backend-clickbus`
 
+#### Endpoints
+
+Os endpoints criados são os seguintes:
+
+`GET http://localhost:8080/places`: retorna lista de places cadastradados;
+
+`GET http://localhost:8080/places?name=`: retorna lista de places cadastradados filtrando por nome;
+
+`GET http://localhost:8080/places/id`: retorna um place específico;
+
+`POST http://localhost:8080/places`: cria um novo place a partir de um json com body *name*, *slang*, *city* e/ou *state*;
+
+`POST http://localhost:8080/places/1`: atualiza um place específico;
+
 #### Testes
 
 Todas as camadas da aplicação foram testadas (domain, repository, controller, service e util) com JUnit5 e mockadas com Mockito, quando necessário. Nota-se que nem todos os testes precisavam ser realizados, já em que alguns foi testado apenas a IDE ou o próprio  framework (especialmente nos testes de repository). Entretanto, foram escritos mesmo assim para praticar a habilidade de testes.
