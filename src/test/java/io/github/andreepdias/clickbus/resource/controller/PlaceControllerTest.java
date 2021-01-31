@@ -4,41 +4,28 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import io.github.andreepdias.clickbus.domain.Place;
 import io.github.andreepdias.clickbus.exception.ObjectNotFoundException;
 import io.github.andreepdias.clickbus.resource.dto.PlaceDTO;
 import io.github.andreepdias.clickbus.service.PlaceService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.awt.print.Book;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static io.github.andreepdias.clickbus.shared.PlaceUtil.*;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -177,7 +164,7 @@ class PlaceControllerTest {
                 .content(json);
 
         PlaceDTO responseDTO = new PlaceDTO(1L, "Mirante de Joinville do Boa Vista", "Mirante", "Joinville", "SC", createDateTimeString(), createDateTimeString());
-        when(service.update(any(PlaceDTO.class))).thenReturn(responseDTO);
+        when(service.update(any(PlaceDTO.class), any(Long.class))).thenReturn(responseDTO);
 
         mvc.perform(request)
                 .andDo(print())
@@ -202,7 +189,7 @@ class PlaceControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json);
 
-        when(service.update(any(PlaceDTO.class))).thenThrow(ObjectNotFoundException.class);
+        when(service.update(any(PlaceDTO.class), any(Long.class))).thenThrow(ObjectNotFoundException.class);
 
         mvc.perform(request)
                 .andDo(print())

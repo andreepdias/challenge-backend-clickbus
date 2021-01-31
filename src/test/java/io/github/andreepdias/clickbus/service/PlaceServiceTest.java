@@ -4,12 +4,9 @@ import io.github.andreepdias.clickbus.domain.Place;
 import io.github.andreepdias.clickbus.exception.ObjectNotFoundException;
 import io.github.andreepdias.clickbus.repository.PlaceRepository;
 import io.github.andreepdias.clickbus.resource.dto.PlaceDTO;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -121,13 +118,14 @@ class PlaceServiceTest {
     @DisplayName("Should update a place and return its dto.")
     void update(){
         PlaceDTO dto = createPlaceDTO();
+        Long id = dto.getId();
         Instant instant = createDateTimeInstant();
 
         when(clock.instant()).thenReturn(instant);
         when(clock.getZone()).thenReturn(ZoneId.systemDefault());
         when(repository.findById(dto.getId())).thenReturn(Optional.of(createPlaceEntity()));
         when(repository.save(any(Place.class))).thenReturn(createPlaceEntity());
-        dto = service.update(dto);
+        dto = service.update(dto, id);
 
         assertThat(dto).usingRecursiveComparison().isEqualTo(createPlaceDTO());
     }
@@ -136,12 +134,13 @@ class PlaceServiceTest {
     @DisplayName("Should not update a place, and throws an exception.")
     void notUpdate(){
         PlaceDTO dto = createPlaceDTO();
+        Long id = dto.getId();
 
         when(repository.findById(dto.getId())).thenThrow(ObjectNotFoundException.class);
         when(repository.save(any())).thenReturn(createPlaceEntity());
 
         assertThrows(ObjectNotFoundException.class, () -> {
-            service.update(dto);
+            service.update(dto, id);
         });
     }
 }

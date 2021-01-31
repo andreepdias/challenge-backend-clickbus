@@ -46,8 +46,7 @@ public class PlaceController {
     @PostMapping("{id}")
     public PlaceDTO update(@RequestBody PlaceDTO dto, @PathVariable Long id){
         try{
-            dto.setId(id);
-            return service.update(dto);
+            return service.update(dto, id);
         }catch (ObjectNotFoundException ex){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
         }

@@ -8,7 +8,6 @@ import io.github.andreepdias.clickbus.util.HandleDate;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,13 +40,13 @@ public class PlaceService {
     public PlaceDTO create(PlaceDTO dto) {
         Place entity = toEntity(dto);
         entity.setId(null);
-        entity = repository.save(entity);
         entity.updateCreationMoment(clock);
+        entity = repository.save(entity);
         return toDTO(entity);
     }
 
-    public PlaceDTO update(PlaceDTO dto) {
-        Place entity = findById(dto.getId());
+    public PlaceDTO update(PlaceDTO dto, Long id) {
+        Place entity = findById(id);
         updateEntityData(entity, dto);
         entity = repository.save(entity);
         return toDTO(entity);
@@ -67,9 +66,7 @@ public class PlaceService {
     }
 
     private Place toEntity(PlaceDTO dto) {
-        LocalDateTime createdAt = HandleDate.StringToLocalDateTime(dto.getCreatedAt());
-        LocalDateTime updatedAt = HandleDate.StringToLocalDateTime(dto.getUpdatedAt());
-        return new Place(dto.getId(), dto.getName(), dto.getSlang(), dto.getCity(), dto.getState(), createdAt, updatedAt);
+        return new Place(null, dto.getName(), dto.getSlang(), dto.getCity(), dto.getState(), null, null);
     }
 
     private PlaceDTO toDTO(Place entity) {
