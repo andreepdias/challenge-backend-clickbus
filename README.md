@@ -2,6 +2,10 @@
 
 Desafio de um processo seletivo de 2019 da Clickbus, realizado para praticar Java e testes unitários. A solução proposta contou com 31 testes unitários.
 
+Repositório original: https://github.com/RocketBus/quero-ser-clickbus/tree/master/testes/backend-developer
+
+Encontrado em: https://github.com/CollabCodeTech/backend-challenges
+
 ### Resumo
 
 O desafio consiste em um api REST bastante simples que manipula lugares (Place), onde é possível criar, editar, buscar por id, listar todos, listar todos filtrando por nome. Um Place é composto por *name*, *slang*, *city*, *state*, *createdAt* e *updatedAt*.
